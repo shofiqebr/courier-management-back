@@ -38,7 +38,7 @@ const server = http_1.default.createServer(app_1.default);
 // 🔌 Attach Socket.IO
 const io = new socket_io_1.Server(server, {
     cors: {
-        origin: "http://localhost:3000", // match frontend
+        origin: process.env.CORS_ORIGIN || "http://localhost:3000",
         methods: ["GET", "POST", "PATCH"],
         credentials: true,
     },
@@ -59,8 +59,9 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield mongoose_1.default.connect(config_1.default.database_url);
-            server.listen(config_1.default.port, () => {
-                console.log(`🚀 Server listening on port ${config_1.default.port}`);
+            const PORT = process.env.PORT || 5000;
+            server.listen(PORT, () => {
+                console.log(`🚀 Server listening on port ${PORT}`);
             });
         }
         catch (err) {

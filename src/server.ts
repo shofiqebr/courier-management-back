@@ -31,7 +31,8 @@ const server = http.createServer(app);
 // 🔌 Attach Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", // match frontend
+    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+
     methods: ["GET", "POST", "PATCH"],
     credentials: true,
   },
@@ -58,9 +59,11 @@ async function main() {
   try {
     await mongoose.connect(config.database_url as string);
 
-    server.listen(config.port, () => {
-      console.log(`🚀 Server listening on port ${config.port}`);
-    });
+   const PORT = process.env.PORT || 5000;
+server.listen(PORT, () => {
+  console.log(`🚀 Server listening on port ${PORT}`);
+});
+
   } catch (err) {
     // console.error(err);
   }
