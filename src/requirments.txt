@@ -53,3 +53,69 @@ Evaluation Criteria:
 - Responsive UI and UX polish
 - Real-time updates and geolocation handling
 - Real-world use cases like COD, failed deliveries, and reports
+
+router.get('/dashboard', auth(['admin']), analyticsController.getStats);
+authRouter.post(
+  '/auth/register',
+  validateRequest(AuthValidation.registerValidationSchema),
+  authController.register
+);
+
+authRouter.post(
+  '/auth/login',
+  validateRequest(AuthValidation.loginValidationSchema),
+  authController.login
+);
+
+parcelRouter.post(
+  '/parcel',
+  auth(['customer']),
+  validateRequest(ParcelValidation.createParcelZodSchema),
+  parcelController.createParcel
+);
+
+parcelRouter.get(
+  '/parcel/my-bookings',
+  auth(['customer']),
+  parcelController.getMyParcels
+);
+
+parcelRouter.get(
+  '/parcel/:id',
+  auth(['admin', 'customer', 'delivery']),
+  parcelController.getSingleParcel
+);
+
+parcelRouter.get(
+  '/parcel',
+  auth(['admin']),
+  parcelController.getAllParcels
+);
+
+parcelRouter.patch(
+  '/parcel/:id/status',
+  auth(['delivery']),
+  validateRequest(ParcelValidation.updateStatusSchema),
+  parcelController.updateStatus
+);
+
+parcelRouter.post(
+  '/assign-agent',
+  auth(['admin']),
+  parcelController.assignAgent
+);
+
+router.get('/export', auth(['admin']), reportController.exportCSV);
+
+UserRoutes.get('/user', auth(['admin']), userController.getAllUsers);
+UserRoutes.get('/user/:id', auth(['admin', 'agent', 'customer']), userController.getSingleUser);
+UserRoutes.patch('/user/:id', auth(['admin']), validateRequest(userValidation.updateUserSchema), userController.updateUser);
+UserRoutes.delete('/user/:id', auth(['admin']), userController.deleteUser);
+UserRoutes.patch('/update-location', auth(['agent']), userController.updateLocation);
+
+Purpose	Tailwind Class	Hex Code	Usage Example
+Primary Blue	bg-blue-600 / hover:bg-blue-700	#2563EB	Buttons, highlights
+Text Dark Gray	text-gray-800	#1F2937	Main headings, important text
+Text Medium Gray	text-gray-600	#4B5563	Paragraphs, secondary text
+Background Light Gray	bg-gray-100	#F3F4F6	Section background
+White (for text/bg)	text-white / bg-white	#FFFFFF	Button text, form backgrounds

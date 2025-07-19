@@ -5,7 +5,7 @@ import { authService } from './auth.service';
 import { StatusCodes } from 'http-status-codes';
 
 const register = catchAsync(async (req: Request, res: Response) => {
-  console.log('Request body:', req.body); // 👀 Check this in terminal
+  // console.log('Request body:', req.body); // 👀 Check this in terminal
 
   const result = await authService.register(req.body);
 

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-namespace */
 
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import jwt from 'jsonwebtoken';
@@ -43,7 +45,7 @@ const auth =
       req.user = decoded;
       next();
     } catch (err: any) {
-      console.error('JWT verification failed:', err.message);
+      // console.error('JWT verification failed:', err.message);
 
       // Provide specific message for expired token
       if (err.name === 'TokenExpiredError') {

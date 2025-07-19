@@ -1,4 +1,5 @@
-import { FilterQuery, UpdateQuery } from 'mongoose';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { UpdateQuery } from 'mongoose';
 import { User } from './user.model';
 
 

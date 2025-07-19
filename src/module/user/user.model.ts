@@ -9,7 +9,7 @@ const UserSchema = new Schema(
     id: {
       type: String,
       required: true,
-      unique: true, // important for login
+      unique: true, 
     },
     email: {
       type: String,
@@ -19,7 +19,7 @@ const UserSchema = new Schema(
     password: {
       type: String,
       required: true,
-      select: false, // so it won't return by default
+      select: false, 
     },
     role: {
       type: String,

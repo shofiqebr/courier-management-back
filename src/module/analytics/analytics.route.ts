@@ -4,6 +4,6 @@ import auth from '../../middlewares/auth';
 
 const router = express.Router();
 
-router.get('/dashboard', auth(['admin']), analyticsController.getStats);
+router.get('/analytics/stats', auth(['admin']), analyticsController.getStats);
 
 export const analyticsRoutes = router;

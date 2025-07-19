@@ -31,9 +31,9 @@ const register = async (payload: {
 };
 
 const login = async (payload: { id: string; password: string }) => {
-  console.log('Trying to login with ID:', payload.id);
+  // console.log('Trying to login with ID:', payload.id);
 const user = await User.findOne({ id: payload.id }).select('+password');
-console.log('User from DB:', user);
+// console.log('User from DB:', user);
   if (!user) throw new Error('User not found!');
 
   const isPasswordMatched = await bcrypt.compare(payload.password, user.password);

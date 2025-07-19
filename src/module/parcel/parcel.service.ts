@@ -1,7 +1,7 @@
 import { Parcel } from './parcel.model';
 import { IParcel } from './parcel.interface';
 import { v4 as uuidv4 } from 'uuid';
-import { Types } from 'mongoose';
+import mongoose, { Types } from 'mongoose';
 
 const createParcel = async (data: Partial<IParcel>, customerId: string) => {
   const trackingId = uuidv4().slice(0, 8).toUpperCase(); // Generate tracking ID
@@ -20,7 +20,11 @@ const getAllParcels = async () => {
 };
 
 const getParcelsByCustomer = async (customerId: string) => {
-  return Parcel.find({ customer: customerId }).populate('deliveryAgent');
+  if (!mongoose.Types.ObjectId.isValid(customerId)) {
+    throw new Error('Invalid customer ID');
+  }
+
+  return Parcel.find({ customer: new mongoose.Types.ObjectId(customerId) }).populate('deliveryAgent');
 };
 
 const getParcelById = async (id: string) => {

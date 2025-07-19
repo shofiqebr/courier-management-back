@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // import app from './app';
 // import config from './app/config';
 
@@ -40,15 +41,15 @@ const io = new Server(server, {
 export { io };
 
 io.on('connection', (socket) => {
-  console.log('Socket connected:', socket.id);
+  // console.log('Socket connected:', socket.id);
 
   socket.on('joinRoom', (parcelId: string) => {
     socket.join(parcelId);
-    console.log(`Joined parcel room: ${parcelId}`);
+    // console.log(`Joined parcel room: ${parcelId}`);
   });
 
   socket.on('disconnect', () => {
-    console.log('Socket disconnected:', socket.id);
+    // console.log('Socket disconnected:', socket.id);
   });
 });
 
@@ -61,7 +62,7 @@ async function main() {
       console.log(`🚀 Server listening on port ${config.port}`);
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
   }
 }
 

@@ -4,7 +4,7 @@ const registerBody = z.object({
   name: z.string({ required_error: 'Name is required' }),
   id: z.string({ required_error: 'ID is required' }),
   email: z.string().email({ message: 'Invalid email address' }),
-  password: z.string().min(6, { message: 'Password must be at least 6 characters' }),
+  password: z.string(),
   role: z.enum(['admin', 'agent', 'customer']).optional(),
 });
 

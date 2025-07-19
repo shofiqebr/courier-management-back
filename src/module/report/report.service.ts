@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Parcel } from '../parcel/parcel.model';
 import { Parser } from 'json2csv';
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
@@ -5,7 +6,7 @@ import { parcelService } from './parcel.service';
 import { StatusCodes } from 'http-status-codes';
 
 const createParcel = catchAsync(async (req: Request, res: Response) => {
-  const customerId = req.user?.id;
+  const customerId = (req.user as any)?._id;
 
   if (!customerId) {
     res.status(StatusCodes.UNAUTHORIZED).json({
@@ -38,7 +39,7 @@ const getAllParcels = catchAsync(async (_req: Request, res: Response) => {
 });
 
 const getMyParcels = catchAsync(async (req: Request, res: Response) => {
-  const customerId = req.user?.id;
+  const customerId = (req.user as any)?._id;
   const result = await parcelService.getParcelsByCustomer(customerId!);
 
   sendResponse(res, {
