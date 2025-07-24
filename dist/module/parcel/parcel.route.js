@@ -14,5 +14,5 @@ parcelRouter.get('/parcel/my-bookings', (0, auth_1.default)(['customer']), parce
 parcelRouter.get('/parcel/:id', (0, auth_1.default)(['admin', 'customer', 'delivery']), parcel_controller_1.parcelController.getSingleParcel);
 parcelRouter.get('/parcel', (0, auth_1.default)(['admin']), parcel_controller_1.parcelController.getAllParcels);
 parcelRouter.patch('/parcel/:id/status', (0, auth_1.default)(['delivery']), (0, validateRequest_1.default)(parcel_validation_1.ParcelValidation.updateStatusSchema), parcel_controller_1.parcelController.updateStatus);
-parcelRouter.post('/assign-agent', (0, auth_1.default)(['admin']), parcel_controller_1.parcelController.assignAgent);
+parcelRouter.post('/parcel/assign-agent', (0, auth_1.default)(['admin']), parcel_controller_1.parcelController.assignAgent);
 exports.default = parcelRouter;

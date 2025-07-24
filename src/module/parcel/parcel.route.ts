@@ -39,7 +39,7 @@ parcelRouter.patch(
 );
 
 parcelRouter.post(
-  '/assign-agent',
+  '/parcel/assign-agent',
   auth(['admin']),
   parcelController.assignAgent
 );
