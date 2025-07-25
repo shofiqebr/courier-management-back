@@ -57,11 +57,11 @@ const updateParcelStatus = (parcelId, deliveryAgentId, newStatus) => __awaiter(v
     const parcel = yield parcel_model_1.Parcel.findById(parcelId);
     if (!parcel)
         throw new Error('Parcel not found');
-    if (!parcel.deliveryAgent || parcel.deliveryAgent.toString() !== deliveryAgentId) {
+    console.log(parcelId, "parcelid", deliveryAgentId, "deliveryAgentid", parcel, "all details");
+    if (!parcel.deliveryAgent || parcel.deliveryAgent._id.toString() !== deliveryAgentId.toString()) {
         throw new Error('You are not assigned to this parcel');
     }
     parcel.status = newStatus;
-    // Optionally push to status history
     parcel.statusHistory = parcel.statusHistory || [];
     parcel.statusHistory.push({ status: newStatus, updatedAt: new Date() });
     yield parcel.save();

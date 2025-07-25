@@ -27,13 +27,13 @@ parcelRouter.get(
 
 parcelRouter.get(
   '/parcel',
-  auth(['admin']),
+  auth(['admin', 'agent']),
   parcelController.getAllParcels
 );
 
 parcelRouter.patch(
   '/parcel/:id/status',
-  auth(['delivery']),
+  auth(['agent']),
   validateRequest(ParcelValidation.updateStatusSchema),
   parcelController.updateStatus
 );

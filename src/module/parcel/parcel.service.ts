@@ -39,20 +39,20 @@ const updateParcelStatus = async (
   const parcel = await Parcel.findById(parcelId);
 
   if (!parcel) throw new Error('Parcel not found');
+  console.log(parcelId,"parcelid", deliveryAgentId,"deliveryAgentid" , parcel, "all details")
 
-  if (!parcel.deliveryAgent || parcel.deliveryAgent.toString() !== deliveryAgentId) {
-    throw new Error('You are not assigned to this parcel');
-  }
+  if (!parcel.deliveryAgent || parcel.deliveryAgent._id.toString() !== deliveryAgentId.toString()) {
+  throw new Error('You are not assigned to this parcel');
+}
 
   parcel.status = newStatus;
-
-  // Optionally push to status history
   parcel.statusHistory = parcel.statusHistory || [];
   parcel.statusHistory.push({ status: newStatus, updatedAt: new Date() });
 
   await parcel.save();
   return parcel;
 };
+
 
 const assignAgentToParcel = async (parcelId: string, agentId: string) => {
   const parcel = await Parcel.findById(parcelId);

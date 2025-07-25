@@ -66,9 +66,8 @@ const getSingleParcel = (0, catchAsync_1.default)((req, res) => __awaiter(void 0
     });
 }));
 const updateStatus = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     const parcelId = req.params.id;
-    const agentId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
+    const agentId = req.user._id;
     const { status } = req.body;
     if (!agentId) {
         res.status(http_status_codes_1.StatusCodes.UNAUTHORIZED).json({

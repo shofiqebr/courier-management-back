@@ -64,7 +64,7 @@ const getSingleParcel = catchAsync(async (req: Request, res: Response) => {
 
 const updateStatus = catchAsync(async (req: Request, res: Response) => {
   const parcelId = req.params.id;
-  const agentId = req.user?.id;
+  const agentId = (req.user as any)._id;
   const { status } = req.body;
 
   if (!agentId) {
