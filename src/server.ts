@@ -18,7 +18,6 @@
 
 // main();
 
-
 // server.ts or index.ts
 import http from 'http';
 import { Server } from 'socket.io';
@@ -31,9 +30,10 @@ const server = http.createServer(app);
 // 🔌 Attach Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+    origin:
+      process.env.CORS_ORIGIN || 'https://courier-management-pied.vercel.app',
 
-    methods: ["GET", "POST", "PATCH"],
+    methods: ['GET', 'POST', 'PATCH'],
     credentials: true,
   },
 });
@@ -59,15 +59,13 @@ async function main() {
   try {
     await mongoose.connect(config.database_url as string);
 
-   const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
-  console.log(`🚀 Server listening on port ${PORT}`);
-});
-
+    const PORT = process.env.PORT || 5000;
+    server.listen(PORT, () => {
+      console.log(`🚀 Server listening on port ${PORT}`);
+    });
   } catch (err) {
     // console.error(err);
   }
 }
 
 main();
-

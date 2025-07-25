@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
@@ -62,7 +63,7 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
 
 const updateLocation = catchAsync(async (req: Request, res: Response) => {
   const { lat, lng } = req.body;
-  const agentId = req.user?.id;
+  const agentId = (req.user as any)._id;
 
   if (!agentId || typeof lat !== 'number' || typeof lng !== 'number') {
      res.status(StatusCodes.BAD_REQUEST).json({
