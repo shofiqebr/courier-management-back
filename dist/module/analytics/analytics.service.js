@@ -11,21 +11,32 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.analyticsService = void 0;
 const parcel_model_1 = require("../parcel/parcel.model");
+const user_model_1 = require("../user/user.model");
 const getParcelStats = () => __awaiter(void 0, void 0, void 0, function* () {
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Set to start of today
-    const dailyBookings = yield parcel_model_1.Parcel.countDocuments({
-        createdAt: { $gte: today },
-    });
-    const failedDeliveries = yield parcel_model_1.Parcel.countDocuments({
-        status: 'Failed',
-    });
-    const codParcels = yield parcel_model_1.Parcel.find({ isCOD: true });
-    const codAmount = codParcels.reduce((total, parcel) => total + parcel.amount, 0);
+    today.setHours(0, 0, 0, 0);
+    const [totalParcels, pendingDeliveries, completedDeliveries, cancelledParcels, failedDeliveries, codParcels, totalUsers, deliveryAgents, dailyBookings,] = yield Promise.all([
+        parcel_model_1.Parcel.countDocuments(),
+        parcel_model_1.Parcel.countDocuments({ status: 'Pending' }),
+        parcel_model_1.Parcel.countDocuments({ status: 'Delivered' }),
+        parcel_model_1.Parcel.countDocuments({ status: 'Cancelled' }),
+        parcel_model_1.Parcel.countDocuments({ status: 'Failed' }),
+        parcel_model_1.Parcel.find({ isCOD: true }),
+        user_model_1.User.countDocuments(),
+        user_model_1.User.countDocuments({ role: 'delivery-agent' }),
+        parcel_model_1.Parcel.countDocuments({ createdAt: { $gte: today } }),
+    ]);
+    const codAmount = codParcels.reduce((sum, parcel) => sum + parcel.amount, 0);
     return {
-        dailyBookings,
+        totalParcels,
+        pendingDeliveries,
+        completedDeliveries,
+        cancelledParcels,
         failedDeliveries,
         codAmount,
+        totalUsers,
+        deliveryAgents,
+        dailyBookings,
     };
 });
 exports.analyticsService = {

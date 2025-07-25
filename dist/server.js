@@ -38,8 +38,8 @@ const server = http_1.default.createServer(app_1.default);
 // 🔌 Attach Socket.IO
 const io = new socket_io_1.Server(server, {
     cors: {
-        origin: process.env.CORS_ORIGIN || "http://localhost:3000",
-        methods: ["GET", "POST", "PATCH"],
+        origin: process.env.CORS_ORIGIN || 'https://courier-management-pied.vercel.app',
+        methods: ['GET', 'POST', 'PATCH'],
         credentials: true,
     },
 });

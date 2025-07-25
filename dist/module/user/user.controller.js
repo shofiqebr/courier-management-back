@@ -63,9 +63,8 @@ const deleteUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
     });
 }));
 const updateLocation = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     const { lat, lng } = req.body;
-    const agentId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.id;
+    const agentId = req.user._id;
     if (!agentId || typeof lat !== 'number' || typeof lng !== 'number') {
         res.status(http_status_codes_1.StatusCodes.BAD_REQUEST).json({
             status: false,
